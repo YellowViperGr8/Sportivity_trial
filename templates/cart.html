@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Merchandise</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <style>
+    body {
+      
+      background-color: aquamarine;
+      background-size: cover;
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+    }
+
+    header {
+      background-color: #f8f9fa;
+      padding: 15px 0;
+    }   
+
+    .container {
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 20px;
+    }
+
+    h1 {
+      color: #007bff;
+    }
+
+    .product-container {
+      border: 1px solid white;
+      padding: 10px;
+      margin: 10px;
+      width: 1000px;
+      display: inline-block;
+      background-color: rgba(255, 255, 216, 0.8);
+      border-radius: 8px;
+    }
+
+    .product-container img {
+      max-height: 200px;
+      max-width: 100%;
+    }
+    
+
+
+    .cart-container {
+      margin-top: 20px;
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+    }
+
+    .cart-item {
+      margin-bottom: 10px;
+    }
+
+    .checkout-form {
+      margin-top: 20px;
+      background-color: white;
+      padding: 15px;
+      border-radius: 8px;
+    }
+
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container">
+        <a class="navbar-brand" href="{{ url_for('home') }}">Merchandise</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('st') }}">Sports Training</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('fit') }}">Fitness</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('scores') }}">Score Card</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('merch') }}">Merchandise</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <div class="container">
+
+    <h1>Merchandise</h1>
+
+    
+
+
+
+    <div class="cart-container">
+      <h2>Cart</h2>
+      {% if cart %}
+        <ul>
+          {% for product_id, quantity in cart.items() %}
+            <li class="cart-item">
+              {{ products[product_id - 1]['name'] }} - Quantity: {{ quantity }} - Total: ${{ products[product_id - 1]['price'] * quantity }}
+              <form method="post" action="/remove_from_cart">
+                <input type="hidden" name="product_id" value="{{ product_id }}">
+                <button type="submit">Remove from Cart</button>
+              </form>
+            </li>
+          {% endfor %}
+        </ul>
+        <p>Total: ${{ total }}</p>
+        <div class="checkout-form">
+          <form method="post" action="/checkout">
+            <label for="name">Name:</label>
+            <input type="text" name="name" required>
+            <br>
+            <label for="email">Email:</label>
+            <input type="email" name="email" required>
+            <br>
+            <label for="address">Address:</label>
+            <textarea name="address" required></textarea>
+            <br>
+            <button type="submit">Place Order</button>
+          </form>
+        </div>
+      {% else %}
+        <p>Your cart is empty.</p>
+      {% endif %}
+    </div>
+
+    {% if message %}
+      <p>{{ message }}</p>
+    {% endif %}
+  </div>
+</body>
+</html>
