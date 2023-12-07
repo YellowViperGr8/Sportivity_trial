@@ -635,5 +635,3 @@ def video_feeds():
     return Response(stream_with_context(process_videos()),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
-if __name__ == '__main__':
-    app.run(debug=True)
