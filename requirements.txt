@@ -1,7 +1,6 @@
 Flask
 Gunicorn
 cvzone
-cv2
 numpy
 threading
 mediapipe
