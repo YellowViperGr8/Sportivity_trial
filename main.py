@@ -24,8 +24,8 @@ counterp = 0
 directionp = 0
 pd_pushup = PoseDetector(trackCon=0.70, detectionCon=0.70)
 pd_squat = PoseDetector(trackCon=0.70, detectionCon=0.70)
-cap_pushup = cv2.VideoCapture(0)
-cap_squat = cv2.VideoCapture(0)
+cap_pushup = cv2.VideoCapture(cv2.CAP_V4L2)
+cap_squat = cv2.VideoCapture(cv2.CAP_V4L2)
 if cap_pushup.isOpened():
     pass
 import time
